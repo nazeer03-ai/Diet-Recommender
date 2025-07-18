@@ -1,25 +1,53 @@
 import streamlit as st
 import base64
 
-def set_background_local(image_file):
-    with open(image_file, 'rb') as f:
-        data = f.read()
-    encoded = base64.b64encode(data).decode()
+import streamlit as st
+import base64
+
+def encode_image(image_path):
+    with open(image_path, 'rb') as f:
+        return base64.b64encode(f.read()).decode()
+
+def set_background_responsive(desktop_image, mobile_image):
+    desktop_encoded = encode_image(desktop_image)
+    mobile_encoded = encode_image(mobile_image)
+
     css = f"""
     <style>
     .stApp {{
-        background-image: url("data:image/jpg;base64,{encoded}");
+        background-image: url("data:image/jpg;base64,{desktop_encoded}");
         background-size: cover;
-        background-position: center;
+        background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+    }}
+
+    @media only screen and (max-width: 768px) {{
+        .stApp {{
+            background-image: url("data:image/jpg;base64,{mobile_encoded}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: scroll;
+        }}
+    }}
+
+    .stApp::before {{
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        z-index: -1;
     }}
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
+ 
 
 # 👇 Set background image here
-set_background_local("delicious-healthy-lettuce-salad.jpg")
+set_background_local("delicious-healthy-lettuce-salad.jpg,delicious-2")
 st.title("🥗 Personal Diet Recommender")
 st.header("👤 Personal Details")
 name=st.text_input("Enter your name","Type Here...")
