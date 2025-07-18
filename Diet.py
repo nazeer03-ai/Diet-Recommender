@@ -43,7 +43,6 @@ def set_background_responsive(desktop_image, mobile_image):
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
-
 # Apply background
 set_background_responsive("delicious-healthy-lettuce-salad.jpg", "delicious-2.jpg")
 
