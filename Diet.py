@@ -1,8 +1,6 @@
 import streamlit as st
 import base64
 
-import streamlit as st
-import base64
 
 def encode_image(image_path):
     with open(image_path, 'rb') as f:
@@ -47,7 +45,7 @@ def set_background_responsive(desktop_image, mobile_image):
  
 
 # 👇 Set background image here
-set_background_local("delicious-healthy-lettuce-salad.jpg,delicious-2")
+set_background_local("delicious-healthy-lettuce-salad.jpg,delicious-2.jpg")
 st.title("🥗 Personal Diet Recommender")
 st.header("👤 Personal Details")
 name=st.text_input("Enter your name","Type Here...")
