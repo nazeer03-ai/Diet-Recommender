@@ -1,13 +1,16 @@
 import streamlit as st
 import base64
 
-import streamlit as st
-import base64
+
 
 def set_background_local(image_file):
-    with open(image_file, 'rb') as f:
-        data = f.read()
-    encoded = base64.b64encode(data).decode()
+    try:
+        with open(image_file, 'rb') as f:
+            data = f.read()
+        encoded = base64.b64encode(data).decode()
+    except FileNotFoundError:
+        st.error("⚠️ Background image not found. Make sure it's in the project folder.")
+        return
 
     css = f"""
     <style>
@@ -17,17 +20,13 @@ def set_background_local(image_file):
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        position: relative;
     }}
 
     .stApp::before {{
         content: "";
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.55);  /* soft white layer */
+        inset: 0;
+        background: rgba(255, 255, 255, 0.55);
         z-index: -1;
     }}
 
@@ -35,17 +34,16 @@ def set_background_local(image_file):
         .stApp {{
             background-size: cover;
             background-position: center center;
-            background-repeat: no-repeat;
             background-attachment: scroll;
         }}
-
         .stApp::before {{
-            background: rgba(255, 255, 255, 0.65);  /* slightly more white on mobile */
+            background: rgba(255, 255, 255, 0.65);
         }}
     }}
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
+
 
 
 
