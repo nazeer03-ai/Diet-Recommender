@@ -2,12 +2,12 @@
 import streamlit as st
 import base64
 
-
+# Encode image to base64
 def encode_image(image_path):
     with open(image_path, 'rb') as f:
         return base64.b64encode(f.read()).decode()
 
-
+# Set background image responsive to desktop and mobile
 def set_background_responsive(desktop_image, mobile_image):
     desktop_encoded = encode_image(desktop_image)
     mobile_encoded = encode_image(mobile_image)
