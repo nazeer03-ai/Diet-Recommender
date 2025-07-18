@@ -8,22 +8,26 @@ def set_background_local(image_file):
     css = f"""
     <style>
     .stApp {{
-        background-image: url("data:image/jpg;base64,{encoded}");
+        background: url("data:image/jpg;base64,{encoded}") no-repeat center center fixed;
         background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+        position: relative;
+    }}
+
+    .stApp::before {{
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.6); /* white overlay */
+        z-index: -1;
     }}
 
     @media only screen and (max-width: 768px) {{
         .stApp {{
-            background-size: contain;
             background-position: center top;
-        }}
-    }}
-    </style>
-    """
-    st.markdown(css, unsafe_allow_html=True)
+            background-size
 
 
 # 👇 Set background image here
