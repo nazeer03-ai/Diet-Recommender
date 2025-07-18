@@ -1,10 +1,14 @@
 import streamlit as st
 import base64
 
+import streamlit as st
+import base64
+
 def set_background_local(image_file):
     with open(image_file, 'rb') as f:
         data = f.read()
     encoded = base64.b64encode(data).decode()
+
     css = f"""
     <style>
     .stApp {{
@@ -13,12 +17,30 @@ def set_background_local(image_file):
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        position: relative;
     }}
 
-    @media only screen and (max-width: 45px) {{
+    .stApp::before {{
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.55);  /* soft white layer */
+        z-index: -1;
+    }}
+
+    @media only screen and (max-width: 768px) {{
         .stApp {{
-            background-size: contain;
-            background-position: center top;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+        }}
+
+        .stApp::before {{
+            background: rgba(255, 255, 255, 0.65);  /* slightly more white on mobile */
         }}
     }}
     </style>
