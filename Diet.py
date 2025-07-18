@@ -15,7 +15,7 @@ def set_background_local(image_file):
         background-attachment: fixed;
     }}
 
-    @media only screen and (max-width: 120px) {{
+    @media only screen and (max-width: 90px) {{
         .stApp {{
             background-size: contain;
             background-position: center top;
