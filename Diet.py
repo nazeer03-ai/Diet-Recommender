@@ -3,6 +3,9 @@ import base64
 
 
 
+import streamlit as st
+import base64
+
 def set_background_local(image_file):
     try:
         with open(image_file, 'rb') as f:
@@ -22,23 +25,25 @@ def set_background_local(image_file):
         background-attachment: fixed;
     }}
 
+    @media only screen and (max-width: 768px) {{
+        .stApp {{
+            background-image: url("data:image/jpg;base64,{encoded}");
+            background-size: cover;  /* Zoom in */
+            background-position: center center;  /* Keep center in focus */
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+        }}
+    }}
+
     .stApp::before {{
         content: "";
         position: fixed;
-        inset: 0;
-        background: rgba(255, 255, 255, 0.55);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.45);  /* Optional white overlay */
         z-index: -1;
-    }}
-
-    @media only screen and (max-width: 768px) {{
-        .stApp {{
-            background-size: cover;
-            background-position: center center;
-            background-attachment: scroll;
-        }}
-        .stApp::before {{
-            background: rgba(255, 255, 255, 0.65);
-        }}
     }}
     </style>
     """
