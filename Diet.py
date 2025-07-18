@@ -139,7 +139,7 @@ if st.button("Submit"):
 
         st.markdown("### 📋 Here is your basic diet chart (sample):")
         try:
-            st.image("diet-chart.png", use_column_width=True)
+            st.image("diet-chart.png", use_container_width=True)
         except:
             st.warning("⚠️ diet-chart.png not found in your directory.")
     else:
