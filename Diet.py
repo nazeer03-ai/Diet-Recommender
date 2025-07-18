@@ -55,7 +55,7 @@ gender = st.radio('Select Your Gender', ('Male', 'Female'))
 
 st.header("📏 Body Measurements")
 weight = st.number_input("Weight in Kgs", placeholder="How much do you weigh?")
-status = st.radio('Select your height format:', ('cms', 'meters', 'feet'))
+status = st.radio('Select your height format:', ('feet', 'meters', 'cms'))
 
 if status == 'cms':
     height = st.number_input("Height in Centimeters", placeholder="How high are you?")
