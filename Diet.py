@@ -10,13 +10,21 @@ def set_background_local(image_file):
     .stApp {{
         background-image: url("data:image/jpg;base64,{encoded}");
         background-size: cover;
-        background-position: center;
+        background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+    }}
+
+    @media only screen and (max-width: 768px) {{
+        .stApp {{
+            background-size: contain;
+            background-position: center top;
+        }}
     }}
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
+
 
 # 👇 Set background image here
 set_background_local("delicious-healthy-lettuce-salad.jpg")
