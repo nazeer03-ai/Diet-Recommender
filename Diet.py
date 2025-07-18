@@ -5,6 +5,7 @@ def set_background_local(image_file):
     with open(image_file, 'rb') as f:
         data = f.read()
     encoded = base64.b64encode(data).decode()
+
     css = f"""
     <style>
     .stApp {{
@@ -26,8 +27,18 @@ def set_background_local(image_file):
 
     @media only screen and (max-width: 768px) {{
         .stApp {{
+            background-size: contain;
             background-position: center top;
-            background-size
+            background-repeat: no-repeat;
+        }}
+
+        .stApp::before {{
+            background: rgba(255, 255, 255, 0.75); /* more white on mobile */
+        }}
+    }}
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
 
 
 # 👇 Set background image here
