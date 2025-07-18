@@ -6,10 +6,9 @@ def encode_image(image_path):
     with open(image_path, 'rb') as f:
         return base64.b64encode(f.read()).decode()
 
-set_background_responsive("delicious-healthy-lettuce-salad.jpg", "delicious-2.jpg")
-
-    desktop_encoded = encode_image(delicious-healthy-lettuce-salad.jpg)
-    mobile_encoded = encode_image(delicious-2.jpg)
+def set_background_responsive(desktop_image, mobile_image):
+    desktop_encoded = encode_image(desktop_image)
+    mobile_encoded = encode_image(mobile_image)
 
     css = f"""
     <style>
@@ -43,6 +42,7 @@ set_background_responsive("delicious-healthy-lettuce-salad.jpg", "delicious-2.jp
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
+
  
 
 # 👇 Set background image here
