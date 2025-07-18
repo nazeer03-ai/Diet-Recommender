@@ -19,7 +19,7 @@ def set_background_local(image_file):
     st.markdown(css, unsafe_allow_html=True)
 
 # 👇 Set background image here
-set_background_local(r"C:\Users\HP\Downloads\delicious-healthy-lettuce-salad.jpg")
+set_background_local("delicious-healthy-lettuce-salad.jpg")
 st.title("🥗 Personal Diet Recommender")
 st.header("👤 Personal Details")
 name=st.text_input("Enter your name","Type Here...")
