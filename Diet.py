@@ -2,43 +2,46 @@ import streamlit as st
 import base64
 
 def set_background_local(image_file):
-    with open(image_file, 'rb') as f:
-        data = f.read()
-    encoded = base64.b64encode(data).decode()
+    try:
+        with open(image_file, "rb") as f:
+            data = f.read()
+        encoded = base64.b64encode(data).decode()
 
-    css = f"""
-    <style>
-    .stApp {{
-        background: url("data:image/jpg;base64,{encoded}") no-repeat center center fixed;
-        background-size: cover;
-        position: relative;
-    }}
-
-    .stApp::before {{
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.6); /* white overlay */
-        z-index: -1;
-    }}
-
-    @media only screen and (max-width: 768px) {{
+        css = f"""
+        <style>
         .stApp {{
-            background-size: contain;
-            background-position: center top;
-            background-repeat: no-repeat;
+            background: url("data:image/jpg;base64,{encoded}") no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
         }}
 
         .stApp::before {{
-            background: rgba(255, 255, 255, 0.75); /* more white on mobile */
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            z-index: -1;
         }}
-    }}
-    </style>
-    """
-    st.markdown(css, unsafe_allow_html=True)
+
+        @media only screen and (max-width: 768px) {{
+            .stApp {{
+                background-size: contain;
+                background-position: center top;
+                background-repeat: no-repeat;
+            }}
+
+            .stApp::before {{
+                background: rgba(255, 255, 255, 0.75);
+            }}
+        }}
+        </style>
+        """
+        st.markdown(css, unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error("⚠️ Background image file not found.")
 
 
 # 👇 Set background image here
