@@ -1,4 +1,3 @@
-
 import streamlit as st
 import base64
 
@@ -97,17 +96,32 @@ medical = st.text_input("Any other medical conditions to be considered?", "Type 
 if st.button("Submit"):
     if height > 0 and weight > 0:
         if status == 'cms':
-            bmi = weight / ((height / 100) ** 2)
+            height_m = height / 100
         elif status == 'meters':
-            bmi = weight / (height ** 2)
+            height_m = height
         else:
-            bmi = weight / ((height * 0.3048) ** 2)
+            height_m = height * 0.3048
 
-        bmi = round(bmi, 2)
+        bmi = round(weight / (height_m ** 2), 2)
         st.markdown(f"### 👋 Hello {name}!")
         st.markdown(f"✅ **Your BMI is:** `{bmi}`")
         st.markdown(f"🎂 **You are:** `{int(age)}` years old.")
 
+        # Required weight calculation
+        ideal_bmi = 22
+        required_weight = round(ideal_bmi * (height_m ** 2), 1)
+        weight_diff = round(weight - required_weight, 1)
+
+        st.markdown(f"🌟 **Required Weight (for BMI {ideal_bmi}):** `{required_weight} kg`")
+
+        if weight_diff > 0:
+            st.warning(f"📉 You need to lose approximately **{weight_diff} kg** to reach a healthy BMI.")
+        elif weight_diff < 0:
+            st.info(f"📈 You need to gain approximately **{abs(weight_diff)} kg** to reach a healthy BMI.")
+        else:
+            st.success("🎉 You're already at your ideal healthy weight!")
+
+        # Health category
         if bmi < 16:
             st.error("You are **Extremely Underweight**")
         elif 16 <= bmi < 18.5:
@@ -120,9 +134,9 @@ if st.button("Submit"):
             st.error("You are **Extremely Overweight**")
 
         if Diabetic:
-            st.info("🩺 You mentioned you're Diabetic.")
+            st.info("🦥 You mentioned you're Diabetic.")
         else:
-            st.info("🩺 You are Non-Diabetic.")
+            st.info("🦥 You are Non-Diabetic.")
 
         st.markdown("### 📋 Here is your basic diet chart (sample):")
         try:
